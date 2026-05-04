@@ -21,17 +21,21 @@ export function Login() {
     try {
       // Try to sign in with Supabase
       await signIn(email, farmName);
-      setMessage('Check your email for the login link!');
       
-      // Still call local login for immediate UX in demo if needed, 
-      // but ideally we wait for the auth state change.
-      // However, the user expect "start farming" to work.
-      // So we'll skip the local login auto-bypass if using real auth.
+      // LOG IN LOCALLY IMMEDIATELY so the app opens
+      // Supabase will upgrade this session once the magic link is clicked
+      login({
+        id: 'user_' + Math.random().toString(36).substr(2, 9),
+        email,
+        farm_name: farmName,
+        name: email.split('@')[0],
+        created_at: new Date().toISOString()
+      });
     } catch (error) {
-      console.error(error);
+      console.error('Supabase error, falling back to local mode:', error);
       // Fallback to local login if Supabase is not working or not configured
       login({
-        id: Math.random().toString(36).substr(2, 9),
+        id: 'local_' + Math.random().toString(36).substr(2, 9),
         email,
         farm_name: farmName,
         name: email.split('@')[0],
