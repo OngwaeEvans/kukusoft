@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --app-bg: #f8fafc;
+  --app-text: #0f172a;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --button-white: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="dark"] {
+  --app-bg: #0b0f19;
+  --app-text: #e2e8f0;
+  --glass-bg: rgba(23, 23, 37, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --button-white: rgba(255, 255, 255, 0.05);
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-4xl: 2.5rem;
+
+  --color-growth: #10B981;
+  --color-harvest: #F59E0B;
+  --color-ink: var(--app-text);
+  
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+@layer base {
+  body {
+    background-color: var(--app-bg);
+    color: var(--app-text);
+    @apply antialiased transition-colors duration-300;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.03) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(245, 158, 11, 0.03) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background-color: var(--glass-bg);
+    border-color: var(--glass-border);
+    @apply backdrop-blur-xl border shadow-glass rounded-4xl transition-colors duration-300;
+  }
+  
+  .glass-button {
+    background-color: var(--button-white);
+    border-color: var(--glass-border);
+    @apply backdrop-blur-md border shadow-sm active:scale-95 transition-all duration-200;
+  }
+
+  .text-display {
+    @apply font-display font-semibold tracking-tight;
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-300;
+}
